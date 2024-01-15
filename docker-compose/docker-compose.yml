@@ -1,0 +1,7 @@
+services:
+  service1:
+    image: spring-docker-tutorial:1.0
+    env_file:
+      - dev.jvm.conf
+    ports:
+      - "8080:8080"

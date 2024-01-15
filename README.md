@@ -13,3 +13,6 @@ Run
 docker run -it --rm --name spring-docker-tutorial -p8080:8080 spring-docker-tutorial:1.0
 ```
 
+# DOCKER COMPOSe
+The original idea is from  
+https://medium.com/@satanjim/how-we-reduced-the-memory-consumption-of-spring-boot-application-over-40-for-the-development-c8a5813fac23
