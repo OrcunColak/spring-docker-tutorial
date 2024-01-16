@@ -27,6 +27,13 @@ spec:
               name: http
               protocol: TCP
           resources: {}
+#          resources:
+#            requests:
+#              memory: "4Gi"
+#              cpu: "1"
+#            limits:
+#              memory: "4Gi"
+#              cpu: "1"
 #      dnsPolicy: ClusterFirst
 #      imagePullSecrets:
 #        - name: my-docker-registry
