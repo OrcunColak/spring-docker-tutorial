@@ -1,0 +1,72 @@
+# Deployment Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: spring-docker-tutorial
+  name: spring-docker-tutorial
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: spring-docker-tutorial
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: spring-docker-tutorial
+      name: spring-docker-tutorial
+      namespace: default
+    spec:
+      containers:
+        - image: spring-docker-tutorial:1.0
+          imagePullPolicy: IfNotPresent
+          name: container-0
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
+              name: http
+              protocol: TCP
+          resources: {}
+#      dnsPolicy: ClusterFirst
+#      imagePullSecrets:
+#        - name: my-docker-registry
+      restartPolicy: Always
+
+# Service Configuration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-docker-tutorial
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 8080 # The port that the service is running on in the cluster
+      protocol: TCP
+      targetPort: 8080 # The port exposed by the service
+  selector:
+    app: spring-docker-tutorial
+  sessionAffinity: None
+  type: LoadBalancer # type of the service. LoadBalancer indicates that our service will be external.
+
+# Ingress Configuration
+---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: spring-docker-tutorial
+#  namespace: default
+#spec:
+#  ingressClassName: nginx
+#  rules:
+#    - host: kube-app.example.com
+#      http:
+#        paths:
+#          - backend:
+#              service:
+#                name: kube-app
+#                port:
+#                  name: http
+#            path: /
+#            pathType: Prefix
