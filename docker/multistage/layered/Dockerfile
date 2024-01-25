@@ -3,8 +3,18 @@
 # Use maven image. In case of gradle you could use gradle:8.2-jdk17-alpine
 FROM maven:3.9.3-eclipse-temurin-17-alpine AS builder
 WORKDIR build
-COPY . .
-RUN mvn clean install -DskipTests
+
+# Old way
+#COPY . .
+#RUN mvn clean install -DskipTests
+
+# Docker caching allows you to reuse previously built layers of your Docker image, avoiding the need to rebuild those
+# layers each time you build a new image.
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+COPY src/ ./src/
+RUN mvn package -DskipTests
 
 # Stage 2
 # Copy only the jar file generated from builder container into the image for the 2nd stage.
