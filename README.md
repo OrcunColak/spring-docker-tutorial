@@ -2,6 +2,18 @@
 
 http://localhost:8080/swagger-ui/index.html
 
+# Build-pack.io
+
+The original idea is from  
+https://medium.com/@kiarash.shamaii/dockerizing-spring-boot-best-practices-for-efficient-containerization-f60ed3980dc7
+
+Run
+
+```
+mvn spring-boot:build-image
+docker run -p 8080:8080 -t spring-docker-tutorial:1.0.0
+```
+
 # Simple Dockerfile
 
 The original idea is from  
@@ -21,7 +33,12 @@ Run
 docker run -it --rm --name spring-docker-tutorial -p8080:8080 spring-docker-tutorial:1.0
 ```
 
-# Multistage Dockerfile
+# Multistage Caching Dockerfile
+
+The original idea is from  
+https://medium.com/@kiarash.shamaii/dockerizing-spring-boot-best-practices-for-efficient-containerization-f60ed3980dc7
+
+# Multistage Layered Dockerfile
 
 The original idea is from  
 https://medium.com/@rohitloke/spring-boot-docker-best-practices-4bf4fdec158
@@ -30,7 +47,7 @@ Build
 
 ```
 mvn clean install
-docker build -f .\docker\multistage\Dockerfile . -t spring-docker-tutorial:1.0
+docker build -f .\docker\multistage\layered\Dockerfile . -t spring-docker-tutorial:1.0
 ```
 
 Run

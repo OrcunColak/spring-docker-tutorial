@@ -1,6 +1,6 @@
 # Stage 1
 # Build application within the Docker container.
-# Use mave image. In case of gradle you could use gradle:8.2-jdk17-alpine
+# Use maven image. In case of gradle you could use gradle:8.2-jdk17-alpine
 FROM maven:3.9.3-eclipse-temurin-17-alpine AS builder
 WORKDIR build
 COPY . .
@@ -18,6 +18,9 @@ RUN java -Djarmode=layertools -jar app.jar extract
 # Stage 3
 # /opt/java/openjdk/bin/java
 FROM eclipse-temurin:17.0.6_10-jre-alpine
+LABEL version="1.0"
+LABEL description="My Spring Boot application"
+
 WORKDIR /opt/app
 RUN addgroup --system appuser && adduser -S -s /usr/sbin/nologin -G appuser appuser
 
