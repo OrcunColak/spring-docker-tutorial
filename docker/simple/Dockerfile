@@ -3,9 +3,10 @@
 # Some JDK images
 # FROM openjdk:17-jdk-alpine
 # FROM openjdk:17-jdk-slim
+# FROM openjdk:23-slim
 
 # Some JRE images
-#eclipse-temurin:17.0.5_8-jre-focal
+# eclipse-temurin:17.0.5_8-jre-focal
 
 FROM openjdk:21-slim
 LABEL version="1.0"
