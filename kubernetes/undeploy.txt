@@ -1,2 +1,6 @@
+# Deploy
+kubectl apply -f project.yaml
+
+# Undeploy
 kubectl delete deployment spring-docker-tutorial
 kubectl delete svc spring-docker-tutorial

@@ -23,7 +23,7 @@ spec:
           imagePullPolicy: IfNotPresent
           name: container-0
           ports:
-            - containerPort: 8080 # The port that the container is running on in the cluster
+            - containerPort: 8080 # Internal port
               name: http
               protocol: TCP
           resources: {}
@@ -49,7 +49,7 @@ metadata:
 spec:
   ports:
     - name: http
-      port: 8080 # The port that the service is running on in the cluster
+      port: 8080 # Internal port
       protocol: TCP
       targetPort: 8080 # The port exposed by the service
   selector:
