@@ -26,6 +26,14 @@ spec:
             - containerPort: 8080 # Internal port
               name: http
               protocol: TCP
+          env:
+            - name: DB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: DB_SERVER
+                  # value: mysql-prod # instead of direct value get from ConfigMap
+          
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -38,6 +46,7 @@ spec:
               port: 8080
             initialDelaySeconds: 10
             periodSeconds: 15
+            
           resources: {}
 #          resources:
 #            requests:
@@ -51,8 +60,26 @@ spec:
 #        - name: my-docker-registry
       restartPolicy: Always
 
-# Service Configuration
 ---
+# Config Map
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+  DB_SERVER: mysql-prod
+#  application.properties: |
+#    management.endpoint.health.show-details=never
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+type: Opaque
+data:
+#  application.properties: # Base64 encoded content
+---
+# Service Configuration
 apiVersion: v1
 kind: Service
 metadata:

@@ -69,7 +69,18 @@ https://medium.com/@mustafaguc/how-to-build-and-deploy-a-spring-boot-microservic
 and  
 https://dzone.com/articles/spring-boot-with-kubernetes
 
+# Actuator
+
+http://localhost:8080/actuator/health
+http://localhost:8080/actuator/env
+
 # Kubernetes Custom Health Indicator
 
 The original idea is from  
 https://medium.com/cloud-native-daily/ensuring-kubernetes-readiness-with-custom-health-checks-in-spring-boot-services-47a4a0131108
+
+# Helm
+
+One example is here
+
+https://ashishnoob.medium.com/dockerizing-and-deploying-a-spring-boot-application-in-kubernetes-15486b4af26c
