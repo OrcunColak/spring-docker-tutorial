@@ -26,6 +26,18 @@ spec:
             - containerPort: 8080 # Internal port
               name: http
               protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
           resources: {}
 #          resources:
 #            requests:
