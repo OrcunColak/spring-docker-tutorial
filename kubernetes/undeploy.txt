@@ -7,3 +7,7 @@ kubectl apply -f project.yaml
 # Undeploy
 kubectl delete svc spring-docker-tutorial
 kubectl delete deployment spring-docker-tutorial
+kubectl delete secret my-secret
+kubectl delete configmap my-config
+
+kubectl delete all --selector=app=spring-docker-tutorial

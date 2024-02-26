@@ -36,16 +36,22 @@ spec:
           
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 8080
+            failureThreshold: 3
             initialDelaySeconds: 10
             periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /api/greeting/greet
               port: 8080
+            failureThreshold: 3
             initialDelaySeconds: 10
             periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 2
             
           resources: {}
 #          resources:
@@ -65,6 +71,8 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  labels:
+    app: spring-docker-tutorial
   name: my-config
 data:
   DB_SERVER: mysql-prod
@@ -74,6 +82,8 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
+  labels:
+    app: spring-docker-tutorial
   name: my-secret
 type: Opaque
 data:
@@ -83,14 +93,16 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    app: spring-docker-tutorial
   name: spring-docker-tutorial
   namespace: default
 spec:
   ports:
     - name: http
-      port: 8080 # Internal port
+      port: 8080 # The port exposed by the service
       protocol: TCP
-      targetPort: 8080 # The port exposed by the service
+      targetPort: 8080 # Internal port
   selector:
     app: spring-docker-tutorial
   sessionAffinity: None

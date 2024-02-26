@@ -74,6 +74,11 @@ https://dzone.com/articles/spring-boot-with-kubernetes
 http://localhost:8080/actuator/health
 http://localhost:8080/actuator/env
 
+# Actuator Probes
+
+The original idea is from  
+https://medium.com/@igorreshetnev/observing-rest-api-performance-with-springboot-prometheus-grafana-and-gatling-local-test-fee7ab393546
+
 # Kubernetes Custom Health Indicator
 
 The original idea is from  
