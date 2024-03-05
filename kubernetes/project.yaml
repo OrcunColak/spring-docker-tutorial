@@ -33,7 +33,7 @@ spec:
                   name: my-config
                   key: DB_SERVER
                   # value: mysql-prod # instead of direct value get from ConfigMap
-          
+          # Kubernetes does not send requests to the pod until it is fully ready.
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
@@ -43,6 +43,7 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 2
+          # If a liveness probe fails, Kubernetes will restart the container
           livenessProbe:
             httpGet:
               path: /api/greeting/greet
