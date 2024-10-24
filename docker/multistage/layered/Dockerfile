@@ -1,7 +1,7 @@
 # Stage 1
 # Build application within the Docker container.
 # Use maven image. In case of gradle you could use gradle:8.2-jdk17-alpine
-FROM maven:3.9.3-eclipse-temurin-17-alpine AS builder
+FROM maven:3.9.9-eclipse-temurin-23-alpine AS builder
 WORKDIR build
 
 # Old way
@@ -27,7 +27,7 @@ RUN java -Djarmode=layertools -jar app.jar extract
 
 # Stage 3
 # /opt/java/openjdk/bin/java
-FROM eclipse-temurin:17.0.6_10-jre-alpine
+FROM eclipse-temurin:23-jre-alpine
 LABEL version="1.0"
 LABEL description="My Spring Boot application"
 
