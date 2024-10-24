@@ -9,6 +9,8 @@ RUN mvn dependency:go-offline
 COPY src/ ./src/
 RUN mvn package -DskipTests
 
+# Stage 2
+# Copy only the jar file generated from builder container into the image for the 2nd stage.
 FROM openjdk:17-slim
 COPY --from=builder /app/target/spring-docker-tutorial-1.0.0.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
