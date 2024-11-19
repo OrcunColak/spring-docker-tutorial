@@ -1,0 +1,13 @@
+# JDK images are big. JRE images are smaller
+
+# Some JDK images
+# openjdk:17-jdk-alpine
+# openjdk:17-jdk-slim
+# openjdk:23-slim
+
+# Includes Liberica JDK recommended by Spring and lightweight Alpaquita Linux optimized for Java.
+# bellsoft/liberica-runtime-container:jdk-21-stream-musl
+
+# Some JRE images
+# eclipse-temurin:17.0.5_8-jre-focal
+# bellsoft/liberica-runtime-container:jre-21-musl

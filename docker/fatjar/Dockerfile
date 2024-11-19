@@ -1,12 +1,4 @@
-# JDK images are big. JRE images are smaller
-
-# Some JDK images
-# FROM openjdk:17-jdk-alpine
-# FROM openjdk:17-jdk-slim
-# FROM openjdk:23-slim
-
-# Some JRE images
-# eclipse-temurin:17.0.5_8-jre-focal
+# Copy local fat jar to docker image
 
 FROM openjdk:21-slim
 LABEL version="1.0"

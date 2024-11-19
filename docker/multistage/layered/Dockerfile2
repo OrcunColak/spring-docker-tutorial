@@ -1,0 +1,27 @@
+# See https://medium.com/@cat.edelveis/a-guide-to-docker-multi-stage-builds-for-spring-boot-08e3a64c9812
+FROM bellsoft/liberica-runtime-container:jdk-21-stream-musl as builder
+
+WORKDIR /home/app
+ADD spring-petclinic-main /home/app/spring-petclinic-main
+RUN cd spring-petclinic-main && ./mvnw -Dmaven.test.skip=true clean package
+
+
+FROM bellsoft/liberica-runtime-container:jdk-21-stream-musl as optimizer
+
+WORKDIR /home/app
+COPY --from=builder /home/app/spring-petclinic-main/target/*.jar petclinic.jar
+
+# Usage : java -Djarmode=layertools -jar yourapp.jar list
+# Starting with Spring Boot 3.3,
+#-Djarmode=layertools ... extract is deprecated in favor of -Djarmode=tools ... extract, and
+#-Djarmode=layertools ... list is deprecated in favor of -Djarmode=tools ... list-layers
+RUN java -Djarmode=layertools -jar petclinic.jar extract
+
+
+FROM bellsoft/liberica-runtime-container:jre-21-stream-musl
+
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
+COPY --from=optimizer /home/app/dependencies/ ./
+COPY --from=optimizer /home/app/spring-boot-loader/ ./
+COPY --from=optimizer /home/app/snapshot-dependencies/ ./
+COPY --from=optimizer /home/app/application/ ./

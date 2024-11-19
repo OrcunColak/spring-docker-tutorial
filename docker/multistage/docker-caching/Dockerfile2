@@ -1,0 +1,16 @@
+# See https://medium.com/@cat.edelveis/a-guide-to-docker-multi-stage-builds-for-spring-boot-08e3a64c9812
+FROM bellsoft/liberica-runtime-container:jdk-21-stream-musl as builder
+
+# Copy whole project and build it
+WORKDIR /home/app
+ADD spring-petclinic-main /home/app/spring-petclinic-main
+RUN cd spring-petclinic-main && ./mvnw -Dmaven.test.skip=true clean package
+
+# Stage 2
+# Copy only the jar file generated from builder container into the image for the 2nd stage.
+FROM bellsoft/liberica-runtime-container:jre-21-musl
+
+WORKDIR /home/app
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/petclinic.jar"]
+COPY --from=builder /home/app/spring-petclinic-main/target/*.jar petclinic.jar
