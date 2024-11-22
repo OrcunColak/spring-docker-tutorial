@@ -23,7 +23,8 @@ WORKDIR layer
 COPY --from=builder /build/target/spring-docker-tutorial-1.0.0.jar app.jar
 
 # Extract these layers out of the jar file
-RUN java -Djarmode=layertools -jar app.jar extract
+# RUN java -Djarmode=layertools -jar app.jar extract
+RUN java -Djarmode=tools -jar app.jar extract
 
 # Stage 3
 # /opt/java/openjdk/bin/java
